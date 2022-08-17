@@ -2,7 +2,7 @@ export { router };
 
 import express from 'express';
 
-import { getPostsHandler, getAPostHandler,
+import { getPostsHandler, getAPostHandler, getUserPostsHandler,
     createPostHandler, updatePostHandler,
     getPostCommentsHandler, createPostCommentHandler } from '../../controllers/postsController.js';
 
@@ -19,3 +19,5 @@ router.route('/:id').get(getAPostHandler);
 // GET /id/comments
 // POST /id/comments
 router.route('/:id/comments').get(getPostCommentsHandler).post(createPostCommentHandler);
+
+router.route('/user/:userId').get(getUserPostsHandler);
