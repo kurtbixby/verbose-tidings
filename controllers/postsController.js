@@ -81,6 +81,15 @@ function updatePostHandler(req, res) {
     }
 }
 
+// Must be logged in
+function deletePostHandler(req, res) {
+    try {
+
+    } catch (err) {
+
+    }
+}
+
 function getPostCommentsHandler(req, res) {
     try {
         const comments = Comment.findAll({
