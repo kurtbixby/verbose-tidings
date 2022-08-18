@@ -1,2 +1,31 @@
 {{!-- Homepage, dashboard, login/signup, logout --}}
 {{!-- Conditionally render the login/signup + logout --}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verbose Tidings - A Blog!</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div>
+        <header>
+            <h1 class="text-3xl"><a href="/">Verbose Tidings</a></h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/login">Login</a>
+                <a href="/signup">Sign Up</a>
+                <a href="/logout">Logout</a>
+            </nav>
+        </header>
+        <main>
+            {{{ body }}}
+        </main>
+        <footer>
+
+        </footer>
+    </div>
+</body>
