@@ -42,6 +42,7 @@ app.set('view engine', 'handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
+app.use(express.static(path.join(__dirname, 'public')));
 
 sequelize.sync();
 app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
