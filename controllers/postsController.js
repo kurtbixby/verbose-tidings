@@ -1,11 +1,11 @@
 export { getPostsHandler, getAPostHandler, getUserPostsHandler,
-    createPostHandler, updatePostHandler,
+    createPostHandler, updatePostHandler, deletePostHandler,
     getPostCommentsHandler, createPostCommentHandler
 };
 
 import { Comment, Post } from '../models/index.js';
 
-function getPostsHandler(req, res) {
+async function getPostsHandler(req, res) {
     try {
         const posts = await Post.findAll();
         return posts;
@@ -15,7 +15,7 @@ function getPostsHandler(req, res) {
     }
 }
 
-function getAPostHandler(req, res) {
+async function getAPostHandler(req, res) {
     try {
         const post = await Post.findByPk(req.params.id);
 
@@ -31,7 +31,7 @@ function getAPostHandler(req, res) {
     }
 }
 
-function getUserPostsHandler(req, res) {
+async function getUserPostsHandler(req, res) {
     try {
         const userPosts = await Post.findAll({
             where: {
@@ -47,7 +47,7 @@ function getUserPostsHandler(req, res) {
 }
 
 // Must be logged in
-function createPostHandler(req, res) {
+async function createPostHandler(req, res) {
     try {
         const user = User.findByPk(req.session.user_id);
 
@@ -67,7 +67,7 @@ function createPostHandler(req, res) {
 }
 
 // Must be logged in
-function updatePostHandler(req, res) {
+async function updatePostHandler(req, res) {
     try {
         const post = Post.findByPk(req.params.id);
 
@@ -82,7 +82,7 @@ function updatePostHandler(req, res) {
 }
 
 // Must be logged in
-function deletePostHandler(req, res) {
+async function deletePostHandler(req, res) {
     try {
 
     } catch (err) {
@@ -90,7 +90,7 @@ function deletePostHandler(req, res) {
     }
 }
 
-function getPostCommentsHandler(req, res) {
+async function getPostCommentsHandler(req, res) {
     try {
         const comments = Comment.findAll({
             where: {
@@ -106,7 +106,7 @@ function getPostCommentsHandler(req, res) {
 }
 
 // Must be logged in
-function createPostCommentHandler(req, res) {
+async function createPostCommentHandler(req, res) {
     try {
         const user = User.findByPk(req.session.user_id);
 
