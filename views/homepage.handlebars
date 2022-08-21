@@ -2,6 +2,9 @@
 {{!-- All of the posts --}}
 <div>
     {{#each blogs as |blog|}}
+    <a href="/posts/{{blog._id}}">
     {{> blog}}
+    </a>
     {{/each}}
+    <script src="/assets/js/homePage.js"></script>
 </div>

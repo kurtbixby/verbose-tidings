@@ -1,2 +1,11 @@
 {{!-- Title + body + User + Date --}}
 {{!-- Also renders comments via partial --}}
+<div>
+    {{> blog}}
+    <div>
+        {{#each comments as |comment|}}
+        {{> comment}}
+        {{/each}}
+    </div>
+    <script src="/assets/js/blogPage.js"></script>
+</div>

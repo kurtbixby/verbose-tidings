@@ -1,6 +1,8 @@
 <div>
     {{#each blogs as |blog|}}
-    {{> blog}}
+    {{> smallBlog}}
     {{/each}}
     {{!-- Option to add a new blog post --}}
+    <button id="addPostButton">New Post</button>
+    <script src="/assets/js/dashboard.js"></script>
 </div>
