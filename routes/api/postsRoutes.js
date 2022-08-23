@@ -6,18 +6,20 @@ import { getPostsHandler, getAPostHandler, getUserPostsHandler,
     createPostHandler, updatePostHandler, deletePostHandler,
     getPostCommentsHandler, createPostCommentHandler } from '../../controllers/postsController.js';
 
+import { isAuthenticatedApi } from '../../util/auth.js';
+
 const router = express.Router();
 
 // GET /
-// POST /
-// UPDATE /
-router.route('/').get(getPostsHandler).post(createPostHandler).put(updatePostHandler).delete(deletePostHandler);
+router.route('/').get(getPostsHandler).post(isAuthenticatedApi, createPostHandler);
 
 // GET /id
-router.route('/:id').get(getAPostHandler);
+// POST /id
+// UPDATE /id
+router.route('/:id').get(getAPostHandler).put(isAuthenticatedApi, updatePostHandler).delete(isAuthenticatedApi, deletePostHandler);
 
 // GET /id/comments
 // POST /id/comments
-router.route('/:id/comments').get(getPostCommentsHandler).post(createPostCommentHandler);
+router.route('/:id/comments').get(getPostCommentsHandler).post(isAuthenticatedApi, createPostCommentHandler);
 
-router.route('/user/:userId').get(getUserPostsHandler);
+router.route('/users/:userId').get(getUserPostsHandler);

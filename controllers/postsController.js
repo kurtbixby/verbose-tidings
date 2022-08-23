@@ -3,12 +3,23 @@ export { getPostsHandler, getAPostHandler, getUserPostsHandler,
     getPostCommentsHandler, createPostCommentHandler
 };
 
-import { Comment, Post } from '../models/index.js';
+import { Comment, Post, User } from '../models/index.js';
 
 async function getPostsHandler(req, res) {
     try {
-        const posts = await Post.findAll();
-        return posts;
+        const posts = await Post.findAll({
+            attributes: {
+                exclude: ['userId', 'updatedAt']
+            },
+            include: {
+                model: User,
+                attributes: {
+                    exclude: ['email', 'password']
+                }
+            },
+        });
+        console.log(posts);
+        res.status(200).json(posts);
     } catch (err) {
         console.error(err);
         res.status(500).res('Internal Server Error');
@@ -17,13 +28,36 @@ async function getPostsHandler(req, res) {
 
 async function getAPostHandler(req, res) {
     try {
-        const post = await Post.findByPk(req.params.id);
+        const post = await Post.findByPk(req.params.id, {
+            attributes: {
+                exclude: ['userId', 'updatedAt']
+            },
+            include: [{
+                model: User,
+                attributes: {
+                    exclude: ['email', 'password']
+                }
+            },
+            {
+                model: Comment,
+                attributes: {
+                    exclude: ['userId', 'postId', 'updatedAt']
+                },
+                include: {
+                    model: User,
+                    attributes: {
+                        exclude: ['email', 'password']
+                    }
+                }
+            }],
+        });
 
         if (!post) {
             res.status(400).json({ message: 'No post with that id'});
             return;
         }
 
+        console.log(post);
         res.status(200).json(post);
     } catch (err) {
         console.error(err);
@@ -53,7 +87,8 @@ async function createPostHandler(req, res) {
 
         if (!user) {
             // This should never fire in normal use
-            res.status(400).message('Invalid user');
+            res.status(400).json({message: 'Invalid user'});
+            return;
         }
 
         const { title, body } = req.body;
@@ -72,7 +107,8 @@ async function updatePostHandler(req, res) {
         const post = Post.findByPk(req.params.id);
 
         if (!post) {
-            res.status(400).message('No post with specified id');
+            res.status(400).json({message: 'No post with specified id'});
+            return;
         }
         const { title, body } = req.body;
     } catch (err) {
@@ -112,13 +148,15 @@ async function createPostCommentHandler(req, res) {
 
         if (!user) {
             // This should never fire
-            res.status(400).message('Invalid user');
+            res.status(400).json({message: 'Invalid user'});
+            return;
         }
 
         const post = Post.findByPk(req.params.id);
 
         if (!post) {
-            res.status(400).message('No post with specified id');
+            res.status(400).json({message: 'No post with specified id'});
+            return;
         }
 
         const { title, body } = req.body;

@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verbose Tidings - A Blog!</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <div>
@@ -16,9 +16,12 @@
             <nav>
                 <a href="/">Home</a>
                 <a href="/dashboard">Dashboard</a>
+                {{#unless loggedIn}}
                 <a href="/login">Login</a>
                 <a href="/signup">Sign Up</a>
+                {{else}}
                 <a href="/logout">Logout</a>
+                {{/unless}}
             </nav>
         </header>
         <main>

@@ -1,10 +1,12 @@
 {{!-- Lots of blog partials --}}
 {{!-- All of the posts --}}
-<div>
-    {{#each blogs as |blog|}}
-    <a href="/posts/{{blog._id}}">
-    {{> blog}}
-    </a>
+<ol>
+    {{#each posts as |post|}}
+    <li>
+        <a href="/posts/{{post.id}}">
+        {{> blog}}
+        </a>
+    </li>
     {{/each}}
-    <script src="/assets/js/homePage.js"></script>
-</div>
+    <script src="/assets/scripts/homePage.js"></script>
+</ol>

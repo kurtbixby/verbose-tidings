@@ -1,8 +1,19 @@
-<div>
-    {{#each blogs as |blog|}}
-    {{> smallBlog}}
+<ol>
+    {{#each posts as |post|}}
+    <li>
+        {{> smallBlog}}
+        <div>
+            <button data-post-id="{{id}}">
+                Edit
+            </button>
+            <button data-post-id="{{id}}">
+                Delete
+            </button>
+            </a>
+        </div>
+    </li>
     {{/each}}
     {{!-- Option to add a new blog post --}}
     <button id="addPostButton">New Post</button>
-    <script src="/assets/js/dashboard.js"></script>
-</div>
+    <script src="/assets/scripts/dashboard.js"></script>
+</ol>
