@@ -1,3 +1,5 @@
+{{!-- Option to add a new blog post --}}
+<button id="addPostButton">New Post</button>    
 <ol>
     {{#each posts as |post|}}
     <li data-post-id="{{id}}">
@@ -13,7 +15,5 @@
         </div>
     </li>
     {{/each}}
-    {{!-- Option to add a new blog post --}}
-    <button id="addPostButton">New Post</button>
-    <script src="/assets/scripts/dashboard.js"></script>
 </ol>
+<script src="/assets/scripts/dashboard.js"></script>

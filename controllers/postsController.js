@@ -83,7 +83,7 @@ async function getUserPostsHandler(req, res) {
 // Must be logged in
 async function createPostHandler(req, res) {
     try {
-        const user = User.findByPk(req.session.user_id);
+        const user = await User.findByPk(req.session.user);
 
         if (!user) {
             // This should never fire in normal use
@@ -92,12 +92,14 @@ async function createPostHandler(req, res) {
         }
 
         const { title, body } = req.body;
-        const newPost = Comment.create(title, body);
+        console.log(`Creating Post with title: ${title} and body: ${body}`)
+        const newPost = await Post.create({title, body});
+        newPost.setUser(user);
 
         res.status(200).json(newPost);
     } catch (err) {
         console.error(err);
-        res.status(500).res('Internal Server Error');
+        res.status(500).json('Internal Server Error');
     }
 }
 
@@ -150,7 +152,7 @@ async function deletePostHandler(req, res) {
 
 async function getPostCommentsHandler(req, res) {
     try {
-        const comments = Comment.findAll({
+        const comments = await Comment.findAll({
             where: {
                 postId: req.params.id
             }
@@ -166,7 +168,7 @@ async function getPostCommentsHandler(req, res) {
 // Must be logged in
 async function createPostCommentHandler(req, res) {
     try {
-        const user = User.findByPk(req.session.user_id);
+        const user = await User.findByPk(req.session.user);
 
         if (!user) {
             // This should never fire
@@ -182,7 +184,7 @@ async function createPostCommentHandler(req, res) {
         }
 
         const { title, body } = req.body;
-        const newComment = Comment.create(title, body);
+        const newComment = await Comment.create({title, body});
         newComment.setPost(post);
         newComment.setUser(user);
 

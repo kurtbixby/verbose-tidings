@@ -1,6 +1,37 @@
 async function addButtonHandler(event) {
     event.preventDefault();
     console.log(event);
+
+    const form = createPostForm();
+    const postsList = document.querySelector('ol');
+    postsList.insertAdjacentElement('beforebegin', form);
+
+    event.currentTarget.style.display = 'none';
+}
+
+async function submitAddHandler(event) {
+    event.preventDefault();
+    console.log(event);
+
+    const form = document.querySelector('form');
+    const title = form.querySelector('#title').value;
+    const body = form.querySelector('#body').value;
+
+    try {
+        const response = await fetch(`/api/posts`, {
+            method: 'POST',
+            body: JSON.stringify({ title, body }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            console.error(response.json());
+        }
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 async function deleteButtonHandler(event) {
@@ -44,7 +75,7 @@ async function editButtonHandler(event) {
     try {
         const response = await fetch(`/api/posts/${postId}`);
         if (!response.ok) {
-
+            return;
         }
 
         const json = await response.json();
@@ -114,6 +145,26 @@ async function submitEditHandler(event) {
     }
 }
 
+function createPostForm() {
+    const form = document.createElement('form');
+    form.innerHTML = `<div>
+            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Title</label>
+            <input type="text" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Title" required>
+        </div>
+        <div>
+            <label for="body" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Post Body</label>
+            <input type="textarea" id="body" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Post Body..." required>
+        </div>`
+    const button = document.createElement('button');
+    button.setAttribute('type', 'submit');
+    button.classList.add('text-white', 'bg-green-700', 'hover:bg-green-800', 'focus:ring-4', 'focus:outline-none', 'focus:ring-green-300', 'font-medium', 'rounded-lg', 'text-sm', 'w-full', 'sm:w-auto', 'px-5', 'py-2.5', 'text-center', 'dark:bg-green-600', 'dark:hover:bg-green-700', 'dark:focus:ring-green-800');
+    button.textContent = 'Create New Post';
+    form.appendChild(button);
+    form.addEventListener('submit', submitAddHandler);
+
+    return form;
+}
+
 document.querySelectorAll('.edit-btn').forEach(e => e.addEventListener('click', editButtonHandler));
 document.querySelectorAll('.delete-btn').forEach(e => e.addEventListener('click', deleteButtonHandler));
-document.querySelector('#addPostButton').addEventListener('click', )
+document.querySelector('#addPostButton').addEventListener('click', addButtonHandler);
