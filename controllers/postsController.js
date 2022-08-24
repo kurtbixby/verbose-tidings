@@ -104,13 +104,22 @@ async function createPostHandler(req, res) {
 // Must be logged in
 async function updatePostHandler(req, res) {
     try {
-        const post = Post.findByPk(req.params.id);
+        const { title, body } = req.body;
 
-        if (!post) {
+        const post = await Post.update({title, body}, {
+            where: {
+                id: req.params.id
+            }
+        });
+
+        console.log(post);
+
+        if (!post[0]) {
             res.status(400).json({message: 'No post with specified id'});
             return;
         }
-        const { title, body } = req.body;
+
+        res.status(200).json(post);
     } catch (err) {
         console.error(err);
         res.status(500).json('Internal Server Error');
@@ -120,7 +129,20 @@ async function updatePostHandler(req, res) {
 // Must be logged in
 async function deletePostHandler(req, res) {
     try {
+        const post = await Post.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
 
+        console.log(post);
+
+        if (!post[0]) {
+            res.status(400).json({message: 'No post with specified id'});
+            return;
+        }
+
+        res.status(200).json(post);
     } catch (err) {
 
     }

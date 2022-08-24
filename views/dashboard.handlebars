@@ -1,12 +1,12 @@
 <ol>
     {{#each posts as |post|}}
-    <li>
+    <li data-post-id="{{id}}">
         {{> smallBlog}}
         <div>
-            <button data-post-id="{{id}}">
+            <button class="edit-btn" data-post-id="{{id}}">
                 Edit
             </button>
-            <button data-post-id="{{id}}">
+            <button class="delete-btn" data-post-id="{{id}}">
                 Delete
             </button>
             </a>
