@@ -22,7 +22,7 @@ async function getPostsHandler(req, res) {
         res.status(200).json(posts);
     } catch (err) {
         console.error(err);
-        res.status(500).res('Internal Server Error');
+        res.status(500).json({message:'Internal Server Error'});
     }
 }
 
@@ -61,7 +61,7 @@ async function getAPostHandler(req, res) {
         res.status(200).json(post);
     } catch (err) {
         console.error(err);
-        res.status(500).res('Internal Server Error');
+        res.status(500).json({message:'Internal Server Error'});
     }
 }
 
@@ -76,7 +76,7 @@ async function getUserPostsHandler(req, res) {
         res.status(200).json(userPosts);
     } catch (err) {
         console.error(err);
-        res.status(500).res('Internal Server Error');
+        res.status(500).json({message:'Internal Server Error'});
     }
 }
 
@@ -161,7 +161,7 @@ async function getPostCommentsHandler(req, res) {
         res.status(200).json(comments);
     } catch (err) {
         console.error(err);
-        res.status(500).res('Internal Server Error');
+        res.status(500).json({message:'Internal Server Error'});
     }
 }
 
@@ -176,21 +176,21 @@ async function createPostCommentHandler(req, res) {
             return;
         }
 
-        const post = Post.findByPk(req.params.id);
+        const post = await Post.findByPk(req.params.id);
 
         if (!post) {
             res.status(400).json({message: 'No post with specified id'});
             return;
         }
 
-        const { title, body } = req.body;
-        const newComment = await Comment.create({title, body});
+        const { body } = req.body;
+        const newComment = await Comment.create({body});
         newComment.setPost(post);
         newComment.setUser(user);
 
         res.status(200).json(newComment);
     } catch (err) {
         console.error(err);
-        res.status(500).res('Internal Server Error');
+        res.status(500).json({message:'Internal Server Error'});
     }
 }
