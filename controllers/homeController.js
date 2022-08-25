@@ -17,7 +17,7 @@ async function homeHandler(req, res) {
             posts[idx].time = dateTime.time;
         });
         console.log(posts);
-        res.render('homepage', {loggedIn: req.session.loggedIn, posts});
+        res.render('homepage', {loggedIn: req.session.loggedIn, posts, clickable: true});
     } catch (err) {
         console.error(err);
         res.status(500).json(err);
