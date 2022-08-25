@@ -6,6 +6,8 @@
 
 A software package for running a blogging website.
 
+A live version of the site can be accessed at [here](https://verbose-tidings.herokuapp.com/).
+
 Functionality includes:
 * Signing up for a new account
 * Creating new blog posts
