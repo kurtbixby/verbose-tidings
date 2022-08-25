@@ -4,15 +4,17 @@
     {{#with post}}
     {{> blog}}
     {{/with}}
-    {{#if loggedIn}}
-    <div>
-        {{> commentBox}}
-    </div>
-    {{/if}}
-    <div>
-        {{#each post.comments as |comment|}}
-        {{> comment}}
-        {{/each}}
+    <div class="flex justify-center">
+        <div class="mt-4 space-y-4 w-11/12">
+            {{#if loggedIn}}
+            <div>
+                {{> commentBox}}
+            </div>
+            {{/if}}
+            {{#each post.comments as |comment|}}
+            {{> comment}}
+            {{/each}}
+        </div>
     </div>
     <script src="/assets/scripts/blogPage.js"></script>
 </div>
