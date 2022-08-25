@@ -1,6 +1,14 @@
 {{!-- Title + body + User + Date --}}
-<div>
-    <h2>{{title}}</h2>
-    <div>{{user.username}} {{date}} at {{time}}</div>
-    <p>{{body}}</p>
+{{#if clickable}}
+<div class="bg-cyan-300 border-cyan-300 border-4 rounded-md hover:bg-cyan-500 hover:border-cyan-500">
+{{else}}
+<div class="bg-cyan-300 border-cyan-300 border-4 rounded-md">
+{{/if}}
+    <div>
+        <div class="flex justify-between mx-2">
+            <h2 class="text-xl font-semibold">{{title}}</h2>
+            <div>{{user.username}} {{date}} at {{time}}</div>
+        </div>
+    </div>
+    <p class="bg-slate-500 p-2 rounded-md m-1">{{body}}</p>
 </div>

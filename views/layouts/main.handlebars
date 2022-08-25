@@ -9,11 +9,11 @@
   <title>Verbose Tidings - A Blog!</title>
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body>
-    <div>
-        <header>
-            <h1 class="text-3xl"><a href="/">Verbose Tidings</a></h1>
-            <nav>
+<body class="bg-slate-700">
+    <div class="flex justify-center bg-cyan-500 mb-3">
+        <header class="flex justify-between flex-row min-w-[66%] xl:min-w-[60%]">
+            <h1 class="text-3xl p-2"><a href="/">Verbose Tidings</a></h1>
+            <nav class="flex flex-row self-end justify-evenly pb-2 space-x-3 mr-2">
                 <a href="/">Home</a>
                 <a href="/dashboard">Dashboard</a>
                 {{#unless loggedIn}}
@@ -24,11 +24,13 @@
                 {{/unless}}
             </nav>
         </header>
-        <main>
-            {{{ body }}}
-        </main>
-        <footer>
-
-        </footer>
     </div>
+    <main class="flex justify-center">
+        <div class="sm:w-5/5 md:w-3/5 lg:w-3/5 xl:w-3/5">
+            {{{ body }}}
+        </div>
+    </main>
+    <footer>
+
+    </footer>
 </body>

@@ -1,6 +1,11 @@
 {{!-- Body + User + Date --}}
 {{!-- Also renders comments via partial --}}
-<div>
-    <div>{{user.username}} {{date}} at {{time}}</div>
-    <p>{{body}}</p>
+{{!-- Title + body + User + Date --}}
+<div class="bg-cyan-200 border-cyan-200 border-4 rounded-md">
+    <div>
+        <div class="flex justify-end mx-2">
+            <div>{{user.username}} {{date}} at {{time}}</div>
+        </div>
+    </div>
+    <p class="bg-slate-500 p-2 rounded-md m-1">{{body}}</p>
 </div>

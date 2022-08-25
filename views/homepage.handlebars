@@ -1,6 +1,6 @@
 {{!-- Lots of blog partials --}}
 {{!-- All of the posts --}}
-<ol>
+<ol class="space-y-4 w-full">
     {{#each posts as |post|}}
     <li>
         <a href="/posts/{{post.id}}">
@@ -8,5 +8,5 @@
         </a>
     </li>
     {{/each}}
-    <script src="/assets/scripts/homePage.js"></script>
 </ol>
+<script src="/assets/scripts/homePage.js"></script>
